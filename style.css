@@ -1,0 +1,91 @@
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+/* utilities */
+*{
+    font-family: dm sans;
+}
+
+.btn-primer {
+    background-color: #68469A ;
+    color: white;
+}
+
+.btn-primer:hover {
+    background-color: #5A3E7F;
+    color: white;
+}
+/* utilities */
+
+/* Navbar */
+.navbar-brand img {
+    width: 120px;
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+/* Navbar */
+
+/* CTA */
+.cta .card {
+    background-image: url(./assets/bg-cta.png);
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #cdcdcd;
+    border-radius: 10px;
+    height: 150px;
+}
+/* CTA */
+
+/* kota */
+.overlay {
+    position: relative;
+    overflow: hidden;
+}
+
+.overlay img {
+    display: block;
+}
+
+/* overlay ungu */
+.overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 0, 128,0.4);
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.overlay:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+/* teks diatas gambar */
+.overlay .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    z-index: 2;
+}
+/* kota */
+
+/* footer */
+footer {
+    background-color: #68469A;
+    color: white;
+    padding: 20px 0;
+}
+
+footer img {
+    width: 120px;
+}
+/* footer */
