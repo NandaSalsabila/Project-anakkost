@@ -89,3 +89,36 @@ footer img {
     width: 120px;
 }
 /* footer */
+
+/* kost */
+.kostan .card {
+    background-image: url(./assets/bg-search.png);
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #cdcdcd;
+    border-radius: 10px;
+    height: 200px;
+}
+/* kost */
+
+/* detail */
+.main-image {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.thumbnail {
+    width: 100%;
+    object-fit: cover;
+    height: 10vh;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.thumbnail:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 8px rgb(0, 0, 0, 0.2);
+}
+/* detail */
