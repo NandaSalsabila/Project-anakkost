@@ -69,3 +69,86 @@ function salinKode () {
         });
     });
 }
+
+// simulasi kirim form
+let currentRowButton = null; // untuk menyimpan tombol bayar yang terakhir di klik
+
+// function untuk upload bukti bayar di modal
+function bukaUploadModal() {
+    const modal = new bootstrap.Modal(document.getElementById("uploadModal"));
+    modal.show();
+}
+
+// event submit form upload
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("uploadForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const file = document.getElementById("buktiBayar").isDefaultNamespace[0];
+
+        if (!file) {
+            Swal.fire("Oops!", "Harap pilih file bukti bayar!", "warning");
+            return;
+        }
+
+        // simulasi pengiriman berhasil 
+        Swal.fire({
+            icon: "success",
+            title: "Berhasil!",
+            text: "Bukti pembayaran telah terkirim",
+            timer: 2000,
+            showConfirmButton: false 
+        });
+
+        // tutup modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById("uploadModal"));
+        modal.hide();
+
+        // reset form
+        this.reset();
+
+        // ubah status dan hapus tombol bayar
+        if (currentRowButton) {
+            const row = currentRowButton.closeset("tr"); // cari <tr>
+            const statusCell = row.querySelector("td:nth-child(5)"); //kolom status
+
+            statusCell.innerHTML = `<span class="badge bg-info text-dark">Dalam Proses</span>`
+
+            currentRowButton.remove(); // hapus tombol bayar
+            currentRowButton = null; // reset variabel
+        }
+    });
+});
+
+// function batalkan pesanan
+function batalkanPesanan(btn) {
+    Swal.fire({
+        title: "Yakin ingin batalkan pesanan?",
+        tetx: "Tindakan ini tidak bisa dibatalkan!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Ya, batalkan!",
+        cancelButtonText: "Batal",
+        reverseButton: true
+    }).then((result) => {
+        if(result.isConfirmed) {
+            // ganti status jadi 'Dibatalkan'
+            const row = btn.closest("tr");
+            const statusCell = row.querySelector("td:nth-child(5)");
+            statusCell.innerHTML = `<span class="badge bg-danger">Dibatalkan</span>`;
+
+            // hapus semua tombol aksi biar tidak bisa diklik bayar/lihat detail lagi
+            const aksiCell = row.querySelector("td:nth-child(6)");
+            aksiCell.innerHTML = `<button class="btn btn-secondary btn-sm disabled">Dibatalkan</button>`;
+
+            //konfirmasi sukses dibatalkan
+            Swal.fire({
+                icon: "success",
+                title: "Dibatalkan",
+                text: "pesananmu telah dibatalkan.",
+                timer: 1500,
+                showConfirmButton: false
+            });
+        }
+    });
+}
