@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>anakkost | Booking Online</title>
+
+    <!-- Menampilkan logo di tab -->
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- utilities -->
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="./index.html"><img src="./assets/logo.png" alt="" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" aria-current="page" href="./home.html">Home</a>
+                    <a class="nav-link" href="./kost.html">Kost</a>
+                    <a class="nav-link" href="./order.html">Pesananmu</a>
+                    <div class="vr d-none d-lg-block mx-3"></div>
+                    <a class="nav-link me-3" href="./login.html"><i class="bi-box-arrow-right"></i> Keluar</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Order -->
+    <section class="order mt-5">
+        <div class="container">
+            <h3>Pesananmu</h3>
+            <p>Detail pesanan akan ditampilkan disini.</p>
+
+            <table class="table striped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal Pesan</th>
+                        <th>Nama Kost</th>
+                        <th>Alamat</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>1</th>
+                        <td>05 Jan 2025</td>
+                        <td>Kost C</td>
+                        <td>Jl.Contoh no.3, Jakarta</td>
+                        <td><span class="badge bg-danger">Dibatalkan</span></td>
+                        <td>
+                            <button class="btn btn-secondary btn-sm" disabled>Dibatalkan</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>2</th>
+                        <td>03 Jan 2025</td>
+                        <td>Kost B</td>
+                        <td>Jl.Contoh no.2, Jakarta</td>
+                        <td><span class="badge bg-warning">Belum bayar</span></td>
+                        <td>
+                            <button class="btn btn-primer btn-sm"
+                                onclick="lihatDetail('kost B', '03 Jan 2025', 'Jln.Contoh no.2 jakarta', 'Belum bayar')">Lihat
+                                Detail</button>
+                            <button class="btn btn-success btn-sm"
+                                onclick="bukaUploadModal('kost B', '03 Jan 2025', this)">Bayar</button>
+                            <button class="btn btn-danger btn-sm" onclick="batalkanPesanan(this)">Batalkan</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>3</th>
+                        <td>01 Jan 2025</td>
+                        <td>Kost A</td>
+                        <td>Jl.Contoh no.1, Jakarta</td>
+                        <td><span class="badge bg-success">Disetujui</span></td>
+                        <td>
+                            <button class="btn btn-primer btn-sm"
+                                onclick="lihatDetail('kost A', '01 Jan 2025', 'Jln.Contoh no.1 jakarta', 'Disetujui', 'KOST-0235')">Lihat
+                                Detail</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <!-- Order -->
+
+    <!-- Modal untuk menampilkan detail -->
+    <div class="modal fade" tabindex="-1" id="detailModal" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail Pesanan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Nama Kost:</strong><span id="modalNamaKost"></span></p>
+                    <p><strong>Tanggal Check-in:</strong><span id="modalTanggal"></span></p>
+                    <p><strong>Alamat:</strong><span id="modalAlamat"></span></p>
+                    <p><strong>Status:</strong><span id="modalStatus"></span></p>
+                    <p><strong>Kode Booking:</strong><span id="modalKode" class="fw-bold text-primary"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="salinKode()">Salin Kode</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal untuk menampilkan detail -->
+
+    <!-- Modal menampilkan pembayaran dan upload bukti pembayaran  -->
+     <div class="modal fade" tabindex="-1" id="uploadModal" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload Bukti Pembayaran</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- info transfer -->
+                    <div class="text-center mb-3">
+                        <img src="./assets/ic-bca.png" alt="" width="120" class="mb-2">
+                        <h6 class="fw-semibold">Transfer ke:</h6>
+                        <p class="mb-1">Bank BCA</p>
+                        <p class="mb-1">a.n. PT. Anakkost Indonesia</p>
+                        <div class="bg-light p-2 rounded">
+                            <strong class="text-primary fs-5">
+                                1234567890
+                            </strong>
+                        </div>
+                    </div>
+
+                    <!-- info pembayaran -->
+                    <div class="mb-3 text-center">
+                        <p class="mb-1">Nominal yang harus dibayar:</p>
+                        <h5 class="fw-bold text-success" id="uploadNominal">
+                            Rp.1.500.000
+                        </h5>
+                    </div>
+
+                    <!-- Form upload bukti pembayaran -->
+                     <form action="" id="uploadform">
+                        <div class="mb-3">
+                            <label for="buktiBayar" class="form-label">Upload bukti transfer</label>
+                            <input type="file" class="form-control" id="buktiBayar" name="buktiBayar" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Kirim bukti pembayaran</button>
+                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal menampilkan pembayaran dan upload bukti pembayaran  -->
+
+</body>
+
+</html>
